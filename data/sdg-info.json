@@ -1,0 +1,138 @@
+[
+  {
+    "number": 1,
+    "title": "Geen Armoede",
+    "description": "Beëindig armoede in al haar vormen overal",
+    "color": "#E5243B",
+    "icon": "🏚️",
+    "implemented": false
+  },
+  {
+    "number": 2,
+    "title": "Geen Honger",
+    "description": "Beëindig honger, bereik voedselzekerheid en betere voeding",
+    "color": "#DDA63A",
+    "icon": "🌾",
+    "implemented": false
+  },
+  {
+    "number": 3,
+    "title": "Goede Gezondheid en Welzijn",
+    "description": "Waarborg een gezond leven en bevorder welzijn voor iedereen",
+    "color": "#4C9F38",
+    "icon": "🏥",
+    "implemented": false
+  },
+  {
+    "number": 4,
+    "title": "Kwaliteitsonderwijs",
+    "description": "Waarborg inclusief en rechtvaardig kwaliteitsonderwijs",
+    "color": "#C5192D",
+    "icon": "📚",
+    "implemented": false
+  },
+  {
+    "number": 5,
+    "title": "Gendergelijkheid",
+    "description": "Bereik gendergelijkheid en empowerment van alle vrouwen en meisjes",
+    "color": "#FF3A21",
+    "icon": "⚖️",
+    "implemented": false
+  },
+  {
+    "number": 6,
+    "title": "Schoon Water en Sanitair",
+    "description": "Waarborg beschikbaarheid en duurzaam beheer van water",
+    "color": "#26BDE2",
+    "icon": "💧",
+    "implemented": false
+  },
+  {
+    "number": 7,
+    "title": "Betaalbare en Schone Energie",
+    "description": "Waarborg toegang tot betaalbare, betrouwbare, duurzame energie",
+    "color": "#FCC30B",
+    "icon": "⚡",
+    "implemented": true
+  },
+  {
+    "number": 8,
+    "title": "Waardig Werk en Economische Groei",
+    "description": "Bevorder aanhoudende, inclusieve economische groei en werkgelegenheid",
+    "color": "#A21942",
+    "icon": "💼",
+    "implemented": false
+  },
+  {
+    "number": 9,
+    "title": "Industrie, Innovatie en Infrastructuur",
+    "description": "Bouw veerkrachtige infrastructuur, bevorder innovatie",
+    "color": "#FD6925",
+    "icon": "🏗️",
+    "implemented": false
+  },
+  {
+    "number": 10,
+    "title": "Ongelijkheid Verminderen",
+    "description": "Verminder ongelijkheid binnen en tussen landen",
+    "color": "#DD1367",
+    "icon": "⚖️",
+    "implemented": false
+  },
+  {
+    "number": 11,
+    "title": "Duurzame Steden en Gemeenschappen",
+    "description": "Maak steden inclusief, veilig, veerkrachtig en duurzaam",
+    "color": "#FD9D24",
+    "icon": "🏙️",
+    "implemented": true
+  },
+  {
+    "number": 12,
+    "title": "Verantwoorde Consumptie en Productie",
+    "description": "Waarborg duurzame consumptie- en productiepatronen",
+    "color": "#BF8B2E",
+    "icon": "♻️",
+    "implemented": false
+  },
+  {
+    "number": 13,
+    "title": "Klimaatactie",
+    "description": "Neem dringende actie om klimaatverandering te bestrijden",
+    "color": "#3F7E44",
+    "icon": "🌍",
+    "implemented": true
+  },
+  {
+    "number": 14,
+    "title": "Leven in het Water",
+    "description": "Behoud en gebruik oceanen, zeeën duurzaam",
+    "color": "#0A97D9",
+    "icon": "🌊",
+    "implemented": false
+  },
+  {
+    "number": 15,
+    "title": "Leven op het Land",
+    "description": "Bescherm, herstel en bevorder duurzaam gebruik van ecosystemen",
+    "color": "#56C02B",
+    "icon": "🌲",
+    "implemented": true
+  },
+  {
+    "number": 16,
+    "title": "Vrede, Justitie en Sterke Instituties",
+    "description": "Bevorder vreedzame en inclusieve samenlevingen",
+    "color": "#00689D",
+    "icon": "⚖️",
+    "implemented": false
+  },
+  {
+    "number": 17,
+    "title": "Partnerschappen voor de Doelen",
+    "description": "Versterk de middelen voor implementatie",
+    "color": "#19486A",
+    "icon": "🤝",
+    "implemented": false
+  }
+]

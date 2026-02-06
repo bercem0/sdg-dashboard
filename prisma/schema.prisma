@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Example: User model for authentication
+// Example: UserPreference model for user settings
+// Example: SdgNote model for user notes
+// Documentation: https://www.prisma.io/docs/orm/prisma-schema/overview
+
+model SdgMetric {
+  id          String   @id @default(cuid())
+  sdgNumber   Int
+  country     String
+  year        Int
+  metricKey   String
+  value       Float?
+  source      String?
+  createdAt   DateTime @default(now())
+
+  @@index([sdgNumber, country, year])
+  @@index([metricKey])
+}
+
+model sdgcountry {
+  id       BigInt    @id @default(autoincrement())
+  name     String?   @db.VarChar(255)
+  sdgvalue sdgvalue[]
+}
+
+model sdgserie {
+  id          BigInt    @id @default(autoincrement())
+  description String?   @db.VarChar(255)
+  indicator   String?   @db.VarChar(255)
+  name        String?   @db.VarChar(255)
+  source      String?   @db.VarChar(255)
+  sdgvalue    sdgvalue[]
+}
+
+model sdgvalue {
+  id         BigInt      @id @default(autoincrement())
+  value      Decimal?    @db.Decimal(38, 2)
+  year       Int?
+  country_id BigInt?
+  serie_id   BigInt?
+
+  sdgcountry sdgcountry? @relation(fields: [country_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  sdgserie   sdgserie?   @relation(fields: [serie_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+
+  @@index([country_id])
+  @@index([serie_id])
+}
