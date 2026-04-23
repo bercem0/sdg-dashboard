@@ -5,6 +5,9 @@ import { prisma } from "@/lib/prisma"
 import { SDGDetailClient } from "./SDGDetailClient"
 import type { SDGMetric } from "@/lib/types"
 
+// ✅ VERCEL FIX (EN ÖNEMLİ SATIR)
+export const dynamic = "force-dynamic";
+
 // --- Static pages ---
 export async function generateStaticParams() {
   return [{ id: "3" }, { id: "4" }, { id: "7" }, { id: "11" }]
@@ -111,7 +114,7 @@ async function getSDGData(sdgNumber: number) {
     })
   } catch (error) {
     console.error("SDG DB error:", error)
-    return [] // 🔥 Vercel crash engellenir
+    return [] // ❗ crash önler
   }
 
   return metrics
@@ -131,7 +134,6 @@ export default async function SDGDetailPage({ params }: PageProps) {
     notFound()
   }
 
-  // 🔥 SAFE CALL (Vercel fix)
   const metrics = await getSDGData(sdgNumber)
 
   return (
