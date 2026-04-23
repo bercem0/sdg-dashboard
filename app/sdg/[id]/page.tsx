@@ -1,17 +1,12 @@
-import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { getSDGById } from "@/lib/data"
 import { prisma } from "@/lib/prisma"
 import { SDGDetailClient } from "./SDGDetailClient"
 import type { SDGMetric } from "@/lib/types"
 
-// ✅ VERCEL FIX (EN ÖNEMLİ SATIR)
-export const dynamic = "force-dynamic";
-
-// --- Static pages ---
-export async function generateStaticParams() {
-  return [{ id: "3" }, { id: "4" }, { id: "7" }, { id: "11" }]
-}
+// 🚀 VERCEL SAFE MODE
+export const dynamic = "force-dynamic"
+export const revalidate = 0
 
 type PageProps = {
   params: { id: string }
@@ -114,7 +109,7 @@ async function getSDGData(sdgNumber: number) {
     })
   } catch (error) {
     console.error("SDG DB error:", error)
-    return [] // ❗ crash önler
+    return []
   }
 
   return metrics
@@ -125,14 +120,14 @@ export default async function SDGDetailPage({ params }: PageProps) {
   const sdgNumber = Number(params.id)
 
   if (!Number.isFinite(sdgNumber)) {
-    notFound()
+    return <div>Invalid SDG</div>
   }
 
   const sdg = getSDGById(sdgNumber)
 
   if (!sdg || !sdg.implemented) {
-  return <div>SDG not found</div>
-}
+    return <div>SDG not found</div>
+  }
 
   const metrics = await getSDGData(sdgNumber)
 
