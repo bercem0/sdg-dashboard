@@ -3,10 +3,11 @@ import { getSDGById } from "@/lib/data";
 import { prisma } from "@/lib/prisma";
 import { SDGDetailClient } from "./SDGDetailClient";
 import type { SDGMetric } from "@/lib/types";
+import { notFound } from "next/navigation";
 
-// 🚀 VERCEL SAFE MODE
+// Bu sayfanın build sırasında değil, sadece istek anında render edilmesini zorunlu tutar
 export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 type PageProps = {
   params: { id: string };
@@ -30,9 +31,7 @@ export async function generateMetadata({
 }
 
 // --- SAFE DB FETCH ---
-async function getSDGData(sdgNumber: number) {
-  const metrics: SDGMetric[] = [];
-
+async function getSDGData(sdgNumber: number): Promise<SDGMetric[]> {
   try {
     const data = await prisma.sdgvalue.findMany({
       where: {
@@ -42,7 +41,6 @@ async function getSDGData(sdgNumber: number) {
           },
         },
       },
-
       select: {
         id: true,
         year: true,
@@ -59,7 +57,6 @@ async function getSDGData(sdgNumber: number) {
           },
         },
       },
-
       orderBy: {
         year: "asc",
       },
@@ -84,11 +81,12 @@ async function getSDGData(sdgNumber: number) {
     };
 
     const expectedIndicators = metricMapping[sdgNumber] || [];
-
-    const realMetrics = data.map((item) => {
+    
+    // Verileri işle
+    const metrics: SDGMetric[] = data.map((item) => {
       const indicator = item.sdgserie?.indicator ?? "";
       const foundPrefix = expectedIndicators.find((pref) =>
-        indicator.startsWith(pref),
+        indicator.startsWith(pref)
       );
 
       return {
@@ -102,45 +100,43 @@ async function getSDGData(sdgNumber: number) {
       };
     });
 
-    metrics.push(...realMetrics);
-
+    // Eksik metrikler için placeholder ekle
     expectedIndicators.forEach((prefix) => {
       const metricKey = metricKeys[prefix];
-
-      const exists = metrics.some((m) => m.metricKey === metricKey);
-
-      if (!exists) {
+      if (!metrics.some((m) => m.metricKey === metricKey)) {
         metrics.push({
           id: `placeholder-${metricKey}`,
           sdgNumber,
-          country: "Unknown",
-          year: 0,
+          country: "N/A",
+          year: new Date().getFullYear(),
           metricKey,
           value: null,
           source: null,
         });
       }
     });
+
+    return metrics;
   } catch (error) {
-    console.error("SDG DB error:", error);
+    console.error("SDG DB Error:", error);
+    // Hata anında boş dizi dönmek build'in çökmesini engeller
     return [];
   }
-
-  return metrics;
 }
 
 // --- PAGE ---
 export default async function SDGDetailPage({ params }: PageProps) {
-  const sdgNumber = Number(params.id);
+  const sdgNumber = parseInt(params.id);
 
-  if (!Number.isFinite(sdgNumber)) {
-    return <div>Invalid SDG</div>;
+  if (isNaN(sdgNumber)) {
+    notFound();
   }
 
   const sdg = getSDGById(sdgNumber);
 
+  // Eğer SDG objesi yoksa veya implemente edilmemişse 404 göster
   if (!sdg || !sdg.implemented) {
-    return <div>SDG not found</div>;
+    notFound();
   }
 
   const metrics = await getSDGData(sdgNumber);
