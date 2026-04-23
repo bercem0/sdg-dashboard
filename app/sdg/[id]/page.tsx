@@ -131,8 +131,8 @@ export default async function SDGDetailPage({ params }: PageProps) {
   const sdg = getSDGById(sdgNumber)
 
   if (!sdg || !sdg.implemented) {
-    notFound()
-  }
+  return <div>SDG not found</div>
+}
 
   const metrics = await getSDGData(sdgNumber)
 
